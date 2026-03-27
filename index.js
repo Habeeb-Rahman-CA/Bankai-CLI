@@ -13,7 +13,7 @@ import('update-notifier').then(({ default: updateNotifier }) => {
 
 program
     .name(chalk.magenta.bold('bankai'))
-    .description(chalk.cyan('🔥 Enter your flow state and track your deep work!'))
+    .description(chalk.cyan('Enter your flow state and track your deep work!'))
     .version('1.0.0', '-v, --version');
 
 // Branded Help Screen with Figlet and Gradient

@@ -3,7 +3,13 @@ const { Command } = require('commander');
 const chalk = require('chalk');
 const figlet = require('figlet');
 const gradient = require('gradient-string');
+const pkg = require('./package.json');
 const program = new Command();
+
+// Update Notifier
+import('update-notifier').then(({ default: updateNotifier }) => {
+    updateNotifier({ pkg }).notify();
+});
 
 program
     .name(chalk.magenta.bold('bankai'))

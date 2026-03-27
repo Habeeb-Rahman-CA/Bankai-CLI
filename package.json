@@ -20,6 +20,7 @@
     "figlet": "^1.11.0",
     "gradient-string": "^3.0.0",
     "ora": "^5.4.1",
-    "uiohook-napi": "^1.5.5"
+    "uiohook-napi": "^1.5.5",
+    "update-notifier": "^7.3.1"
   }
 }

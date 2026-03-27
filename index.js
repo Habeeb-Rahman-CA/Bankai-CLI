@@ -10,8 +10,9 @@ program
 program
     .command('start <task>')
     .description('Start tracking')
-    .action((task) => {
-        require('./commands/start')(task)
+    .option('-p, --project <project>', 'Project name', 'General')
+    .action((task, options) => {
+        require('./commands/start')(task, options.project)
     });
 
 program

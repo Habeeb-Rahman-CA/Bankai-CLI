@@ -17,5 +17,5 @@ module.exports = () => {
     last.duration = duration;
 
     save(data)
-    console.log(chalk.red(`Session ended. Duration: ${duration} mins`))
+    console.log(chalk.red(`Session ended for project: ${last.project || 'General'}. Duration: ${duration} mins`))
 }

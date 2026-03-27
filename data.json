@@ -14,6 +14,27 @@
   {
     "task": "coding",
     "start": 1774585271944,
+    "end": 1774586190374,
+    "duration": "15.31"
+  },
+  {
+    "task": "coding",
+    "project": "Project A",
+    "start": 1774586190171,
+    "end": 1774586239867,
+    "duration": "0.83"
+  },
+  {
+    "task": "coding",
+    "project": "Project B",
+    "start": 1774586249850,
+    "end": 1774586250049,
+    "duration": "0.00"
+  },
+  {
+    "task": "bugfixes",
+    "project": "cafm",
+    "start": 1774586336995,
     "end": null,
     "duration": 0
   }

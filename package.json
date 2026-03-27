@@ -11,6 +11,10 @@
   "keywords": ["focus", "productivity", "pomodoro", "cli", "deepwork"],
   "author": "Habrmnc (https://habrhmnc.dev/)",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Habeeb-Rahman-CA/Bankai-CLI"
+  },
   "type": "commonjs",
   "description": "A premium, minimalist CLI for deep work tracking and focus management.",
   "dependencies": {

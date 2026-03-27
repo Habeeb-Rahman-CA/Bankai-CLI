@@ -58,5 +58,13 @@
     "start": 1774587879422,
     "end": 1774587909679,
     "duration": "0.50"
+  },
+  {
+    "task": "Focus Session",
+    "project": "General",
+    "start": 1774589622187,
+    "end": 1774589657212,
+    "duration": "0.58",
+    "idleMinutes": "0.00"
   }
 ]

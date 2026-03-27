@@ -25,8 +25,10 @@ program
 program
     .command('report')
     .description('Show your reports')
-    .action(() => {
-        require('./commands/report')()
+    .option('-d, --daily', 'Show today\'s report')
+    .option('-w, --weekly', 'Show this week\'s report')
+    .action((options) => {
+        require('./commands/report')(options)
     })
 
 program

@@ -32,19 +32,22 @@ module.exports = (duration, task, project) => {
     const endTime = startTime + minutes * 60 * 1000;
 
     const updateTimer = () => {
-        const remaining = Math.max(0, (endTime - Date.now()) / 1000 / 60);
+        const now = Date.now();
+        const remaining = Math.max(0, (endTime - now) / 1000 / 60);
         spinner.text = `Time remaining: ${remaining.toFixed(2)} mins`;
 
-        if (Date.now() >= endTime) {
+        if (now >= endTime) {
             clearInterval(timer);
             const currentData = load();
             const session = currentData.find(s => s.start === startTime);
             if (session) {
-                session.end = Date.now();
+                session.end = now;
                 session.duration = minutes.toFixed(2);
                 save(currentData);
             }
-            spinner.succeed(chalk.bold.green(`\nFocus session complete! You focused for ${minutes} mins.`));
+            
+            spinner.succeed(chalk.bold.green(`\nFocus session complete!`));
+            console.log(chalk.blue(`   Total focused: ${minutes} mins`));
             process.exit(0);
         }
     };

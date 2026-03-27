@@ -1,8 +1,11 @@
-# ⚔️ BANKAI CLI - Deep Work Tracker
+# ⚔️ @habrmnc/bankai
+
+[![npm version](https://img.shields.io/npm/v/@habrmnc/bankai.svg?style=flat-square)](https://www.npmjs.com/package/@habrmnc/bankai)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](https://opensource.org/licenses/ISC)
 
 🔥 **Enter your flow state and track your sessions like a Soul Reaper.**
 
-BANKAI is a minimalist yet powerful command-line productivity tool designed for developers who want to track their deep work, manage Pomodoro sessions, and monitor their focus efficiency with global idle detection.
+`@habrmnc/bankai` is a premium, minimalist command-line productivity tool designed for developers who want to track their deep work, manage Pomodoro sessions, and monitor focus efficiency with global activity detection.
 
 Developed by [Habrmnc](https://habrhmnc.dev/)
 
@@ -10,79 +13,77 @@ Developed by [Habrmnc](https://habrhmnc.dev/)
 
 ## 🚀 Key Features
 
-- **🎯 Task & Project Tracking**: Organize your focus sessions by task name and project categories.
-- **⏲️ Pomodoro Focus Mode**: Fixed-duration timers with live countdowns.
-- **💤 Global Idle Detection**: Automatically detects when you move away from your computer and calculates your **Focus Efficiency %**.
-- **📊 Advanced Reporting**:
-  - Daily, Weekly, and Monthly summaries.
+- **🎯 Task & Project Tracking**: Organize your deep work by specific tasks and project categories.
+- **⏲️ Pomodoro Focus Mode**: High-release focus sessions with live countdowns.
+- **💤 Smart Idle Detection**: Captures global mouse/keyboard activity and calculates your **Focus Efficiency %** in real-time.
+- **📊 Detailed Reporting**:
+  - Daily, Weekly, and Monthly data views.
   - Custom Date Range filtering (`--from` and `--to`).
-  - Beautifully formatted ASCII tables (`--table`).
-- **⚡ Ultra Lightweight**: Minimal dependencies, pure productivity.
+  - Professional ASCII table exports (`--table`).
+- **🎨 Premium Aesthetics**: Dynamic gradients, ASCII art, and smooth animations powered by `chalk` and `figlet`.
+
+---
 
 ## 🛠️ Installation
 
-1. **Clone the repository**:
+### Method 1: Global Install (Recommended)
+You can install BANKAI directly from npm:
+
+```bash
+npm install -g @habrmnc/bankai
+```
+
+### Method 2: Development Install
+If you'd like to run it locally or contribute:
+
+1. **Clone & Install**:
    ```bash
    git clone https://github.com/Habeeb-Rahman-CA/Bankai-CLI.git
    cd Bankai-CLI
-   ```
-
-2. **Install dependencies**:
-   ```bash
    npm install
    ```
 
-3. **Link the CLI globally**:
+2. **Link for CLI Use**:
    ```bash
-   # This will make the 'bankai' command available everywhere
    npm link
    ```
 
 > [!IMPORTANT]
-> This tool uses `uiohook-napi` for global idle detection. Ensure you have the necessary build tools installed on your OS if compilation is required.
+> This tool uses `uiohook-napi` for system-wide idle detection. If you are on Linux or macOS, you may need additional build tools or permissions for global input listeners.
 
 ---
 
 ## 📖 Command Guide
 
-### 1. Start Tracking
-Begin a manual tracking session.
+### 1. `bankai start <task>`
+Begin tracking an active work session.
 ```bash
-bankai start "Implementing Auth Module" -p "My App"
+bankai start "Refactoring UI Components" --project "Dashboard-V2"
 ```
 
-### 2. Stop Tracking
-Finalize the active session.
+### 2. `bankai focus <minutes>`
+Activate Pomodoro mode with a live spinner.
 ```bash
-bankai stop
+# Focus for 50 minutes on a specific task
+bankai focus 50 --task "Database Migration" --project "Backend"
 ```
 
-### 3. Focus Mode (Pomodoro)
-Start a timed session with a live countdown.
-```bash
-# Focus for 25 minutes
-bankai focus 25 --task "Code Review" -p "Internal"
-```
+### 3. `bankai report`
+Unlock your productivity insights with advanced filters.
 
-### 4. Advanced Reporting
-View your focus data in various formats.
-
-- **Standard Report**: `bankai report`
-- **Table View**: `bankai report --table`
-- **Time Filters**:
-  - `bankai report --daily`
-  - `bankai report --weekly`
-  - `bankai report --monthly`
-- **Date Ranges**:
-  - `bankai report --from 2026-03-01 --to 2026-03-31`
+- **Today**: `bankai report -d`
+- **This Week**: `bankai report -w`
+- **Last 30 Days**: `bankai report -m`
+- **Table Summary**: `bankai report -t`
+- **Custom Range**: `bankai report -f 2026-03-01 -e 2026-03-31`
 
 ---
 
-## 🎨 Aesthetics
-BANKAI uses `chalk`, `figlet`, and `gradient-string` to provide a premium terminal experience. Every report and help screen is designed to inspire focus and power.
+## 🎨 Design Philosophy
+Inspired by the "release" concept of Bankai, this CLI turns mundane task tracking into a visually engaging experience. It uses **gradient-string** for its iconic magenta-to-red aura and **cli-table3** for precise, data-dense summaries.
 
 ## 📄 License
-This project is licensed under the ISC License.
+MIT © [Habrmnc](https://habrhmnc.dev/)
 
 ---
-*Created with ❤️ by Habrmnc*
+*Created with ❤️ for deep work enthusiasts.*

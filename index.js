@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 const { Command } = require('commander');
 const chalk = require('chalk');
+const figlet = require('figlet');
+const gradient = require('gradient-string');
 const program = new Command();
 
 program
@@ -8,15 +10,12 @@ program
     .description(chalk.cyan('🔥 Enter your flow state and track your deep work!'))
     .version('1.0.0', '-v, --version');
 
-// Branded Help Screen
-program.addHelpText('before', `
-${chalk.magenta.bold('██████╗  █████╗ ███╗   ██╗██╗  ██╗ █████╗ ██╗')}
-${chalk.magenta.bold('██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝██╔══██╗██║')}
-${chalk.magenta.bold('██████╔╝███████║██╔██╗ ██║█████╔╝ ███████║██║')}
-${chalk.magenta.bold('██╔══██╗██╔══██║██║╚██╗██║██╔═██╗ ██╔══██║██║')}
-${chalk.magenta.bold('██████╔╝██║  ██║██║ ╚████║██║  ██╗██║  ██╗██║')}
-${chalk.magenta.bold('╚══════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝')}
+// Branded Help Screen with Figlet and Gradient
+const logo = figlet.textSync('BANKAI', { font: 'Slant' });
+const bankaiGradient = (gradient.default || gradient)(['#ff00ff', '#ff0000', '#220022']); // Magenta to Red to Darker
 
+program.addHelpText('before', `
+${bankaiGradient.multiline(logo)}
 ${chalk.dim('Developed by')} ${chalk.cyan.bold('Habrmnc')} ${chalk.dim('(https://habrhmnc.dev/)')}
 `);
 

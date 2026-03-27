@@ -29,4 +29,13 @@ program
         require('./commands/report')()
     })
 
+program
+    .command('focus <duration>')
+    .description('Pomodoro focus session')
+    .option('-t, --task <task>', 'Task name', 'Focus Session')
+    .option('-p, --project <project>', 'Project name', 'General')
+    .action((duration, options) => {
+        require('./commands/focus')(duration, options.task, options.project)
+    })
+
 program.parse();

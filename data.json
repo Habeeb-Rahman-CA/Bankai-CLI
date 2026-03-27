@@ -37,5 +37,26 @@
     "start": 1774586336995,
     "end": null,
     "duration": 0
+  },
+  {
+    "task": "testing pomodoro",
+    "project": "pomodoro experiment",
+    "start": 1774587432906,
+    "end": 1774587438943,
+    "duration": "0.10"
+  },
+  {
+    "task": "Focus Session",
+    "project": "General",
+    "start": 1774587480872,
+    "end": 1774587541283,
+    "duration": "1.00"
+  },
+  {
+    "task": "System Category CRUD",
+    "project": "CAFM",
+    "start": 1774587879422,
+    "end": 1774587909679,
+    "duration": "0.50"
   }
 ]

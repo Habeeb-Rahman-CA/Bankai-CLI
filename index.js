@@ -28,6 +28,8 @@ program
     .option('-d, --daily', 'Show today\'s report')
     .option('-w, --weekly', 'Show this week\'s report')
     .option('-m, --monthly', 'Show this month\'s report')
+    .option('-f, --from <date>', 'Filter from date (YYYY-MM-DD)')
+    .option('-e, --to <date>', 'Filter to date (YYYY-MM-DD)')
     .option('-t, --table', 'Show report as a table')
     .action((options) => {
         require('./commands/report')(options)

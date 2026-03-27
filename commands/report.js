@@ -18,6 +18,22 @@ module.exports = (options = {}) => {
         const lastMonth = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         data = data.filter(d => d.start >= lastMonth.getTime());
         console.log(chalk.yellow.bold(`\nMonthly Report [Last 30 Days]`));
+    } else if (options.from || options.to) {
+        const fromDate = options.from ? new Date(options.from) : new Date(0);
+        const toDate = options.to ? new Date(options.to) : new Date();
+        
+        // Ensure "to" covers the whole day if just YYYY-MM-DD
+        if (options.to && options.to.length === 10) {
+            toDate.setHours(23, 59, 59, 999);
+        }
+
+        if (isNaN(fromDate.getTime()) || isNaN(toDate.getTime())) {
+            console.error(chalk.red("Invalid date format. Use YYYY-MM-DD."));
+            return;
+        }
+
+        data = data.filter(d => d.start >= fromDate.getTime() && d.start <= toDate.getTime());
+        console.log(chalk.yellow.bold(`\n📅 Range: [${fromDate.toDateString()}] to [${toDate.toDateString()}]`));
     } else {
         console.log(chalk.yellow.bold(`\nAll-time Summary`));
     }

@@ -27,6 +27,7 @@ program
     .description('Show your reports')
     .option('-d, --daily', 'Show today\'s report')
     .option('-w, --weekly', 'Show this week\'s report')
+    .option('-t, --table', 'Show report as a table')
     .action((options) => {
         require('./commands/report')(options)
     })

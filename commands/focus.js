@@ -1,6 +1,7 @@
 const ora = require('ora');
 const chalk = require('chalk');
 const { load, save } = require('../utils/storage');
+const { getIdleSeconds } = require('../utils/idle');
 
 module.exports = (duration, task, project) => {
     const minutes = parseFloat(duration);
@@ -16,7 +17,8 @@ module.exports = (duration, task, project) => {
         project,
         start: startTime,
         end: null,
-        duration: 0
+        duration: 0,
+        idleMinutes: 0
     };
     data.push(newSession);
     save(data);
@@ -30,11 +32,22 @@ module.exports = (duration, task, project) => {
     }).start();
 
     const endTime = startTime + minutes * 60 * 1000;
+    let totalIdleMinutes = 0;
 
     const updateTimer = () => {
         const now = Date.now();
         const remaining = Math.max(0, (endTime - now) / 1000 / 60);
-        spinner.text = `Time remaining: ${remaining.toFixed(2)} mins`;
+        
+        // Idle detection
+        const idleSecs = getIdleSeconds();
+        if (idleSecs > 180) { // Reduced threshold for better experience (3 minutes)
+            spinner.color = 'red';
+            spinner.text = `${chalk.bold.red('⚠️  IDLE DETECTED')} | Time remaining: ${remaining.toFixed(2)} mins`;
+            totalIdleMinutes += 1 / 60; // Approximate (every second we are idle we increment)
+        } else {
+            spinner.color = 'yellow';
+            spinner.text = `Time remaining: ${remaining.toFixed(2)} mins`;
+        }
 
         if (now >= endTime) {
             clearInterval(timer);
@@ -43,11 +56,16 @@ module.exports = (duration, task, project) => {
             if (session) {
                 session.end = now;
                 session.duration = minutes.toFixed(2);
+                session.idleMinutes = totalIdleMinutes.toFixed(2);
                 save(currentData);
             }
             
+            const efficiency = Math.max(0, Math.min(100, ((minutes - totalIdleMinutes) / minutes) * 100)).toFixed(0);
+            
             spinner.succeed(chalk.bold.green(`\nFocus session complete!`));
             console.log(chalk.blue(`   Total focused: ${minutes} mins`));
+            console.log(chalk.yellow(`   Idle detected: ${totalIdleMinutes.toFixed(2)} mins`));
+            console.log(chalk.magenta.bold(`   Focus Efficiency: ${efficiency}%`));
             process.exit(0);
         }
     };
@@ -63,6 +81,7 @@ module.exports = (duration, task, project) => {
             const actualDuration = ((Date.now() - startTime) / 1000 / 60).toFixed(2);
             session.end = Date.now();
             session.duration = actualDuration;
+            session.idleMinutes = totalIdleMinutes.toFixed(2);
             save(currentData);
             spinner.stop();
             console.log(chalk.yellow(`\n\nSession interrupted. Saved progress: ${actualDuration} mins.`));

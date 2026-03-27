@@ -14,6 +14,10 @@ module.exports = (options = {}) => {
         const lastWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         data = data.filter(d => d.start >= lastWeek.getTime());
         console.log(chalk.yellow.bold(`\nWeekly Report [Last 7 Days]`));
+    } else if (options.monthly) {
+        const lastMonth = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        data = data.filter(d => d.start >= lastMonth.getTime());
+        console.log(chalk.yellow.bold(`\nMonthly Report [Last 30 Days]`));
     } else {
         console.log(chalk.yellow.bold(`\nAll-time Summary`));
     }
@@ -32,17 +36,20 @@ module.exports = (options = {}) => {
             const taskName = d.task || 'Unnamed Task';
             const duration = parseFloat(d.duration);
             const idle = parseFloat(d.idleMinutes || 0);
+            const date = new Date(d.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            
+            const taskKey = `${date} | ${taskName}`;
             
             if (!projects[projectName]) {
                 projects[projectName] = { tasks: {}, total: 0 };
             }
             
-            if (!projects[projectName].tasks[taskName]) {
-                projects[projectName].tasks[taskName] = { total: 0, idle: 0 };
+            if (!projects[projectName].tasks[taskKey]) {
+                projects[projectName].tasks[taskKey] = { total: 0, idle: 0, date, name: taskName };
             }
             
-            projects[projectName].tasks[taskName].total += duration;
-            projects[projectName].tasks[taskName].idle += idle;
+            projects[projectName].tasks[taskKey].total += duration;
+            projects[projectName].tasks[taskKey].idle += idle;
             projects[projectName].total += duration;
             totalOverall += duration;
         }
@@ -50,19 +57,20 @@ module.exports = (options = {}) => {
 
     if (options.table) {
         const table = new Table({
-            head: [chalk.cyan('PROJECT'), chalk.cyan('TASK'), chalk.cyan('TOTAL (m)'), chalk.cyan('IDLE (m)'), chalk.cyan('EFF.')],
+            head: [chalk.cyan('PROJECT'), chalk.cyan('DATE'), chalk.cyan('TASK'), chalk.cyan('TOTAL (m)'), chalk.cyan('IDLE (m)'), chalk.cyan('EFF.')],
             style: { head: [], border: [] }
         });
 
         Object.keys(projects).forEach(projectName => {
             const project = projects[projectName];
-            Object.keys(project.tasks).forEach((taskName, idx) => {
-                const task = project.tasks[taskName];
+            Object.keys(project.tasks).forEach((taskKey, idx) => {
+                const task = project.tasks[taskKey];
                 const efficiency = task.total > 0 ? (((task.total - task.idle) / task.total) * 100).toFixed(0) : 100;
                 
                 table.push([
                     idx === 0 ? chalk.magenta.bold(projectName.toUpperCase()) : '',
-                    chalk.white(taskName),
+                    chalk.dim(task.date),
+                    chalk.white(task.name),
                     task.total.toFixed(2),
                     task.idle.toFixed(2),
                     `${efficiency}%`
@@ -78,11 +86,11 @@ module.exports = (options = {}) => {
             const project = projects[projectName];
             console.log(`\n   ${chalk.magenta.bold(projectName.toUpperCase())}`);
             
-            Object.keys(project.tasks).forEach(taskName => {
-                const task = project.tasks[taskName];
+            Object.keys(project.tasks).forEach(taskKey => {
+                const task = project.tasks[taskKey];
                 const efficiency = task.total > 0 ? (((task.total - task.idle) / task.total) * 100).toFixed(0) : 100;
                 const extraInfo = task.idle > 0 ? ` ${chalk.dim(`(Idle: ${task.idle.toFixed(2)}m | ${efficiency}%)`)}` : '';
-                console.log(`     - ${chalk.white(taskName.padEnd(25))} : ${task.total.toFixed(2)} mins${extraInfo}`);
+                console.log(`     - ${chalk.white(taskKey.padEnd(25))} : ${task.total.toFixed(2)} mins${extraInfo}`);
             });
             
             console.log(`     ${chalk.dim('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}`);

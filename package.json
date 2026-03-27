@@ -1,6 +1,6 @@
 {
   "name": "@habrmnc/bankai",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "bin": {
     "bankai": "index.js"
@@ -8,7 +8,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["focus", "productivity", "pomodoro", "cli", "deepwork"],
+  "keywords": [
+    "focus",
+    "productivity",
+    "pomodoro",
+    "cli",
+    "deepwork"
+  ],
   "author": "Habrmnc (https://habrhmnc.dev/)",
   "license": "ISC",
   "repository": {

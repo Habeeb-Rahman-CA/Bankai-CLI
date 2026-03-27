@@ -1,0 +1,20 @@
+[
+  {
+    "task": "coding",
+    "start": 1774581623503,
+    "end": 1774581838213,
+    "duration": "3.58"
+  },
+  {
+    "task": "checking",
+    "start": 1774581912261,
+    "end": 1774585272209,
+    "duration": "56.00"
+  },
+  {
+    "task": "coding",
+    "start": 1774585271944,
+    "end": null,
+    "duration": 0
+  }
+]

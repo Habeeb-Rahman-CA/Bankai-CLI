@@ -43,7 +43,7 @@ module.exports = (options = {}) => {
         return;
     }
 
-    const projects = {};
+    const dates = {};
     let totalOverall = 0;
 
     data.forEach((d) => {
@@ -54,38 +54,38 @@ module.exports = (options = {}) => {
             const idle = parseFloat(d.idleMinutes || 0);
             const date = new Date(d.start).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             
-            const taskKey = `${date} | ${taskName}`;
+            const taskKey = `${projectName} | ${taskName}`;
             
-            if (!projects[projectName]) {
-                projects[projectName] = { tasks: {}, total: 0 };
+            if (!dates[date]) {
+                dates[date] = { tasks: {}, total: 0 };
             }
             
-            if (!projects[projectName].tasks[taskKey]) {
-                projects[projectName].tasks[taskKey] = { total: 0, idle: 0, date, name: taskName };
+            if (!dates[date].tasks[taskKey]) {
+                dates[date].tasks[taskKey] = { total: 0, idle: 0, project: projectName, name: taskName };
             }
             
-            projects[projectName].tasks[taskKey].total += duration;
-            projects[projectName].tasks[taskKey].idle += idle;
-            projects[projectName].total += duration;
+            dates[date].tasks[taskKey].total += duration;
+            dates[date].tasks[taskKey].idle += idle;
+            dates[date].total += duration;
             totalOverall += duration;
         }
     })
 
     if (options.table) {
         const table = new Table({
-            head: [chalk.cyan('PROJECT'), chalk.cyan('DATE'), chalk.cyan('TASK'), chalk.cyan('TOTAL (m)'), chalk.cyan('IDLE (m)'), chalk.cyan('EFF.')],
+            head: [chalk.cyan('DATE'), chalk.cyan('PROJECT'), chalk.cyan('TASK'), chalk.cyan('TOTAL (m)'), chalk.cyan('IDLE (m)'), chalk.cyan('EFF.')],
             style: { head: [], border: [] }
         });
 
-        Object.keys(projects).forEach(projectName => {
-            const project = projects[projectName];
-            Object.keys(project.tasks).forEach((taskKey, idx) => {
-                const task = project.tasks[taskKey];
+        Object.keys(dates).forEach(date => {
+            const dayData = dates[date];
+            Object.keys(dayData.tasks).forEach((taskKey, idx) => {
+                const task = dayData.tasks[taskKey];
                 const efficiency = task.total > 0 ? (((task.total - task.idle) / task.total) * 100).toFixed(0) : 100;
                 
                 table.push([
-                    idx === 0 ? chalk.magenta.bold(projectName.toUpperCase()) : '',
-                    chalk.dim(task.date),
+                    idx === 0 ? chalk.magenta.bold(date.toUpperCase()) : '',
+                    chalk.dim(task.project),
                     chalk.white(task.name),
                     task.total.toFixed(2),
                     task.idle.toFixed(2),
@@ -96,21 +96,21 @@ module.exports = (options = {}) => {
 
         console.log(`\n${table.toString()}`);
     } else {
-        console.log(chalk.magenta.bold("\n   ✧ Detailed Project Report ✧"));
+        console.log(chalk.magenta.bold("\n   ✧ Detailed Daily Report ✧"));
         
-        Object.keys(projects).forEach(projectName => {
-            const project = projects[projectName];
-            console.log(`\n   ${chalk.magenta.bold(projectName.toUpperCase())}`);
+        Object.keys(dates).forEach(date => {
+            const dayData = dates[date];
+            console.log(`\n   ${chalk.magenta.bold(date.toUpperCase())}`);
             
-            Object.keys(project.tasks).forEach(taskKey => {
-                const task = project.tasks[taskKey];
+            Object.keys(dayData.tasks).forEach(taskKey => {
+                const task = dayData.tasks[taskKey];
                 const efficiency = task.total > 0 ? (((task.total - task.idle) / task.total) * 100).toFixed(0) : 100;
                 const extraInfo = task.idle > 0 ? ` ${chalk.dim(`(Idle: ${task.idle.toFixed(2)}m | ${efficiency}%)`)}` : '';
                 console.log(`     - ${chalk.white(taskKey.padEnd(25))} : ${task.total.toFixed(2)} mins${extraInfo}`);
             });
             
             console.log(`     ${chalk.dim('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')}`);
-            console.log(`     ${chalk.yellow.bold("Project Total".padEnd(25))} : ${project.total.toFixed(2)} mins`);
+            console.log(`     ${chalk.yellow.bold("Daily Total".padEnd(25))} : ${dayData.total.toFixed(2)} mins`);
         });
     }
 

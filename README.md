@@ -77,6 +77,28 @@ Unlock your productivity insights with advanced filters.
 - **Table Summary**: bankai report -t
 - **Custom Range**: bankai report -f 2026-03-01 -e 2026-03-31
 
+### 4. bankai tasks
+List recent past tasks and their assigned IDs.
+```bash
+# List top 10 recent tasks
+bankai tasks
+
+# List all past tasks
+bankai tasks --all
+```
+
+### 5. bankai update <id>
+Update the name, project, or duration of a past task.
+```bash
+bankai update 12 --task "New Task Name" --project "New Project" --duration 120
+```
+
+### 6. bankai delete <id>
+Delete a past task by its ID.
+```bash
+bankai delete 12
+```
+
 ---
 
 ## Design Philosophy

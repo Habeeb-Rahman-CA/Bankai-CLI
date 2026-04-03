@@ -62,4 +62,29 @@ program
         require('./commands/focus')(duration, options.task, options.project)
     });
 
+program
+    .command('tasks')
+    .description('List past tasks and their IDs limit to 10 by default')
+    .option('-a, --all', 'Show all tasks')
+    .action((options) => {
+        require('./commands/tasks')(options)
+    });
+
+program
+    .command('update <id>')
+    .description('Update an old task')
+    .option('-t, --task <name>', 'New task name')
+    .option('-p, --project <name>', 'New project name')
+    .option('-d, --duration <mins>', 'New duration in minutes')
+    .action((id, options) => {
+        require('./commands/update')(id, options)
+    });
+
+program
+    .command('delete <id>')
+    .description('Delete an old task')
+    .action((id) => {
+        require('./commands/delete')(id)
+    });
+
 program.parse();

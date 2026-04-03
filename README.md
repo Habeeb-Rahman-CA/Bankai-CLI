@@ -99,6 +99,12 @@ Delete a past task by its ID.
 bankai delete 12
 ```
 
+### 7. bankai recap
+Review today's tracked time and interactively fill in untracked gaps (>15 mins).
+```bash
+bankai recap
+```
+
 ---
 
 ## Design Philosophy

@@ -87,4 +87,11 @@ program
         require('./commands/delete')(id)
     });
 
+program
+    .command('recap')
+    .description('Recap today\'s focus and fill gaps')
+    .action(() => {
+        require('./commands/recap')()
+    });
+
 program.parse();

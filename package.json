@@ -1,6 +1,6 @@
 {
   "name": "@habrmnc/bankai",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Ultimate productivity CLI for developers with sprints, sync, and analytics",
   "main": "src/index.js",
   "bin": {
@@ -18,5 +18,8 @@
     "cli-table3": "^0.6.2",
     "node-notifier": "^10.0.1",
     "uuid": "^9.0.0"
+  },
+  "publishConfig": {
+    "@bankaicli:registry": "https://npm.pkg.github.com/"
   }
 }

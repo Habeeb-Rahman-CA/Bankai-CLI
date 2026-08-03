@@ -1,117 +1,35 @@
-# @habrmnc/bankai
+# Bankai CLI
 
-[![npm version](https://img.shields.io/npm/v/@habrmnc/bankai.svg?style=flat-square)](https://www.npmjs.com/package/@habrmnc/bankai)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](https://opensource.org/licenses/ISC)
+The ultimate productivity tool for developers. Track time, manage sprints, sync with Jira/GitHub/Notion, and analyze your focus patterns.
 
-**Enter your flow state and track your sessions like a Soul Reaper.**
+## Features
 
-`@habrmnc/bankai` is a premium, minimalist command-line productivity tool designed for developers who want to track their deep work, manage Pomodoro sessions, and monitor focus efficiency with global activity detection.
-
-Developed by [Habrmnc](https://habrhmnc.dev/)
-
----
-
-## Key Features
-
-- **Task & Project Tracking**: Organize your deep work by specific tasks and project categories.
-- **Pomodoro Focus Mode**: High-release focus sessions with live countdowns.
-- **Smart Idle Detection**: Captures global mouse/keyboard activity and calculates your Focus Efficiency % in real-time.
-- **Detailed Reporting**:
-  - Daily, Weekly, and Monthly data views.
-  - Custom Date Range filtering (--from and --to).
-  - Professional ASCII table exports (--table).
-- **Premium Aesthetics**: Dynamic gradients, ASCII art, and smooth animations powered by chalk and figlet.
-
----
+- **Time Tracking**: Start/stop tasks with `bankai start`
+- **Pomodoro**: Built-in timer with `bankai pomodoro`
+- **Sprints**: Manage goals with `bankai sprint`
+- **Sync**: Integrate with Jira, GitHub, Notion
+- **Analytics**: Trends, comparisons, and distraction heatmaps
+- **Webhooks**: Automate workflows
+- **Notifications**: Desktop alerts
 
 ## Installation
-
-### Method 1: Global Install (Recommended)
-You can install BANKAI directly from npm:
 
 ```bash
 npm install -g @habrmnc/bankai
 ```
 
-### Method 2: Development Install
-If you'd like to run it locally or contribute:
+## Usage
 
-1. **Clone & Install**:
-   ```bash
-   git clone https://github.com/Habeeb-Rahman-CA/Bankai-CLI.git
-   cd Bankai-CLI
-   npm install
-   ```
-
-2. **Link for CLI Use**:
-   ```bash
-   npm link
-   ```
-
-> [!IMPORTANT]
-> This tool uses uiohook-napi for system-wide idle detection. If you are on Linux or macOS, you may need additional build tools or permissions for global input listeners.
-
----
-
-## Command Guide
-
-### 1. bankai start <task>
-Begin tracking an active work session.
 ```bash
-bankai start "Refactoring UI Components" --project "Dashboard-V2"
+bankai start "Fix Bug" -p "ProjectX"
+bankai pomodoro 25
+bankai sprint -n "Q4 Goals" -d 14
+bankai report weekly
 ```
 
-### 2. bankai focus <minutes>
-Activate Pomodoro mode with a live spinner.
-```bash
-# Focus for 50 minutes on a specific task
-bankai focus 50 --task "Database Migration" --project "Backend"
-```
+## Structure
 
-### 3. bankai report
-Unlock your productivity insights with advanced filters.
-
-- **Today**: bankai report -d
-- **This Week**: bankai report -w
-- **Last 30 Days**: bankai report -m
-- **Table Summary**: bankai report -t
-- **Custom Range**: bankai report -f 2026-03-01 -e 2026-03-31
-
-### 4. bankai tasks
-List recent past tasks and their assigned IDs.
-```bash
-# List top 10 recent tasks
-bankai tasks
-
-# List all past tasks
-bankai tasks --all
-```
-
-### 5. bankai update <id>
-Update the name, project, or duration of a past task.
-```bash
-bankai update 12 --task "New Task Name" --project "New Project" --duration 120
-```
-
-### 6. bankai delete <id>
-Delete a past task by its ID.
-```bash
-bankai delete 12
-```
-
-### 7. bankai recap
-Review today's tracked time and interactively fill in untracked gaps (>15 mins).
-```bash
-bankai recap
-```
-
----
-
-## Design Philosophy
-Inspired by the "release" concept of Bankai, this CLI turns mundane task tracking into a visually engaging experience. It uses gradient-string for its iconic magenta-to-red aura and cli-table3 for precise, data-dense summaries.
-
-## License
-MIT © [Habrmnc](https://habrhmnc.dev/)
-
----
-*Created for deep work enthusiasts.*
+- `bin/`: Entry point
+- `src/commands/`: CLI command definitions
+- `src/services/`: Business logic
+- `src/data/`: Persistence layer

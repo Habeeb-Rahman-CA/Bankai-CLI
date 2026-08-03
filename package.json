@@ -1,36 +1,22 @@
 {
   "name": "@habrmnc/bankai",
-  "version": "1.1.0",
-  "main": "index.js",
+  "version": "1.2.0",
+  "description": "Ultimate productivity CLI for developers with sprints, sync, and analytics",
+  "main": "src/index.js",
   "bin": {
-    "bankai": "index.js"
+    "bankai": "./bin/bankai.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "focus",
-    "productivity",
-    "pomodoro",
-    "cli",
-    "deepwork"
-  ],
-  "author": "Habrmnc (https://habrhmnc.dev/)",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Habeeb-Rahman-CA/Bankai-CLI"
-  },
-  "type": "commonjs",
-  "description": "A premium, minimalist CLI for deep work tracking and focus management.",
+  "keywords": ["productivity", "cli", "time-tracking", "pomodoro", "jira", "github"],
+  "author": "Habeeb Rahman",
+  "license": "MIT",
   "dependencies": {
+    "commander": "^9.4.0",
     "chalk": "^4.1.2",
-    "cli-table3": "^0.6.5",
-    "commander": "^14.0.3",
-    "figlet": "^1.11.0",
-    "gradient-string": "^3.0.0",
-    "ora": "^5.4.1",
-    "uiohook-napi": "^1.5.5",
-    "update-notifier": "^7.3.1"
+    "cli-table3": "^0.6.2",
+    "node-notifier": "^10.0.1",
+    "uuid": "^9.0.0"
   }
 }
